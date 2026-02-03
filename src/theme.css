@@ -1,0 +1,68 @@
+:root {
+    --bs-primary: #1DB954 !important;
+    --bs-secondary: #005BBB !important;
+    --bs-success: #1DB954 !important;
+    --bs-warning: #F2D024 !important;
+    --bs-dark: #1F1F1F !important;
+    --bs-light: #F5F5F5 !important;
+
+    --bs-body-bg: #F5F5F5 !important;
+    --bs-body-color: #1F1F1F !important;
+
+    --bs-border-radius: 0.5rem !important;
+    --bs-border-color: #ddd !important;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--bs-dark) !important;
+}
+
+
+.navbar a,
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: white !important;
+    font-weight: 500;
+}
+
+.navbar a:hover {
+    color: var(--bs-primary) !important;
+}
+
+/* Cards */
+.card {
+    border-radius: 0.75rem;
+    border: 1px solid #ddd;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+.btn-primary:hover {
+    background-color: #17a84a;
+    border-color: #17a84a;
+}
+
+.btn-secondary {
+    background-color: var(--bs-secondary);
+    border-color: var(--bs-secondary);
+}
+
+.btn-warning {
+    background-color: var(--bs-warning);
+    border-color: var(--bs-warning);
+}
+
+/* Tables */
+.table thead {
+    background-color: var(--bs-secondary);
+    color: white;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: rgba(0, 91, 187, 0.05);
+}
