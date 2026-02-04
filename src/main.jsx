@@ -6,10 +6,9 @@ import { AuthProvider } from "./context/AuthContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './theme.css';
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/padel-front">
       <AuthProvider>
         <App />
       </AuthProvider>
