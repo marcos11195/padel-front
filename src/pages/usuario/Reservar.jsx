@@ -73,8 +73,12 @@ const Reservar = () => {
         const ultimoHorario = horarios.find(h => h.id === ultimoId);
         const [inicioUltimo, finUltimo] = ultimoHorario.franja.split("-");
 
+        const esConsecutivo =
+            finUltimo === inicioActual ||   // hacia adelante
+            inicioUltimo === finActual;     // hacia atrás
+
         // Si NO es consecutivo → resetear selección y seleccionar solo el nuevo
-        if (finUltimo !== inicioActual) {
+        if (!esConsecutivo) {
             setHorariosSeleccionados([id]);
             showToast("Solo puedes seleccionar franjas consecutivas");
             return;
@@ -83,6 +87,7 @@ const Reservar = () => {
         // Si es consecutivo → añadirlo
         setHorariosSeleccionados([...horariosSeleccionados, id]);
     };
+
 
     const confirmarReserva = () => {
         if (!fecha || !pistaSeleccionada || horariosSeleccionados.length === 0) {
@@ -207,8 +212,8 @@ const Reservar = () => {
                                         <div
                                             onClick={() => toggleHorario(h.id)}
                                             className={`p-3 text-center rounded shadow-sm horario-card ${seleccionado
-                                                    ? "bg-success text-white"
-                                                    : "bg-dark text-white bg-opacity-75 border border-light"
+                                                ? "bg-success text-white"
+                                                : "bg-dark text-white bg-opacity-75 border border-light"
                                                 }`}
                                             style={{
                                                 cursor: "pointer",
