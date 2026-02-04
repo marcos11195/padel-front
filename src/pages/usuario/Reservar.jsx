@@ -49,7 +49,7 @@ const Reservar = () => {
     }, [fecha, pistaSeleccionada]);
 
     // ============================
-    // NUEVA LÓGICA DE SELECCIÓN
+    // LÓGICA DE SELECCIÓN CORRECTA
     // ============================
     const toggleHorario = (id) => {
         const horarioActual = horarios.find(h => h.id === id);
@@ -68,14 +68,22 @@ const Reservar = () => {
             return;
         }
 
-        // Obtener el último horario seleccionado
-        const ultimoId = horariosSeleccionados[horariosSeleccionados.length - 1];
-        const ultimoHorario = horarios.find(h => h.id === ultimoId);
-        const [inicioUltimo, finUltimo] = ultimoHorario.franja.split("-");
+        // Ordenar horarios seleccionados por hora
+        const seleccionadosOrdenados = horariosSeleccionados
+            .map(selId => horarios.find(h => h.id === selId))
+            .sort((a, b) => a.franja.localeCompare(b.franja));
 
-        const esConsecutivo =
-            finUltimo === inicioActual ||   // hacia adelante
-            inicioUltimo === finActual;     // hacia atrás
+        const primero = seleccionadosOrdenados[0];
+        const ultimo = seleccionadosOrdenados[seleccionadosOrdenados.length - 1];
+
+        const [inicioPrimero, finPrimero] = primero.franja.split("-");
+        const [inicioUltimo, finUltimo] = ultimo.franja.split("-");
+
+        // Comprobar si es consecutivo por delante o por detrás
+        const esConsecutivoPorDelante = finUltimo === inicioActual;
+        const esConsecutivoPorDetras = finActual === inicioPrimero;
+
+        const esConsecutivo = esConsecutivoPorDelante || esConsecutivoPorDetras;
 
         // Si NO es consecutivo → resetear selección y seleccionar solo el nuevo
         if (!esConsecutivo) {
@@ -87,7 +95,6 @@ const Reservar = () => {
         // Si es consecutivo → añadirlo
         setHorariosSeleccionados([...horariosSeleccionados, id]);
     };
-
 
     const confirmarReserva = () => {
         if (!fecha || !pistaSeleccionada || horariosSeleccionados.length === 0) {
@@ -212,8 +219,8 @@ const Reservar = () => {
                                         <div
                                             onClick={() => toggleHorario(h.id)}
                                             className={`p-3 text-center rounded shadow-sm horario-card ${seleccionado
-                                                ? "bg-success text-white"
-                                                : "bg-dark text-white bg-opacity-75 border border-light"
+                                                    ? "bg-success text-white"
+                                                    : "bg-dark text-white bg-opacity-75 border border-light"
                                                 }`}
                                             style={{
                                                 cursor: "pointer",
