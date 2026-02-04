@@ -139,13 +139,6 @@ const MisReservas = () => {
                                         </button>
 
                                         <button
-                                            className="btn btn-warning btn-sm me-2"
-                                            onClick={() => alert("Editar reserva aún no implementado")}
-                                        >
-                                            Editar
-                                        </button>
-
-                                        <button
                                             className="btn btn-danger btn-sm"
                                             onClick={() => cancelarReserva(r.id)}
                                         >
