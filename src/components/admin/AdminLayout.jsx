@@ -51,11 +51,7 @@ const AdminLayout = ({ children }) => {
                         </Link>
                     </li>
 
-                    <li className="nav-item mb-2">
-                        <Link to="/admin/extras" className="nav-link text-white">
-                            {open ? "Extras" : "➕"}
-                        </Link>
-                    </li>
+                    {/* ❌ Eliminado el enlace a Extras */}
 
                     <li className="nav-item mb-2">
                         <Link to="/admin/reservas" className="nav-link text-white">

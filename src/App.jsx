@@ -10,7 +10,6 @@ import AdminDashboardContent from "./components/admin/AdminDashboardContent";
 import AdminPistas from "./components/admin/AdminPistas";
 import AdminUsuarios from "./components/admin/AdminUsuarios";
 import AdminHorarios from "./components/admin/AdminHorarios";
-import AdminExtras from "./components/admin/AdminExtras";
 import AdminReservas from "./components/admin/AdminReservas";
 
 import UsuarioLayout from "./components/usuario/UsuarioLayout";
@@ -28,12 +27,12 @@ function App() {
       <Navbar />
 
       <Routes>
-     
+        {/* PUBLIC */}
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registro" element={<RegisterPage />} />
 
-     
+        {/* USER */}
         <Route
           path="/usuario"
           element={
@@ -48,7 +47,7 @@ function App() {
           <Route path="mis-reservas" element={<MisReservas />} />
         </Route>
 
-       
+        {/* ADMIN */}
         <Route
           path="/admin"
           element={
@@ -94,17 +93,6 @@ function App() {
         />
 
         <Route
-          path="/admin/extras"
-          element={
-            <PrivateRoute role={1}>
-              <AdminLayout>
-                <AdminExtras />
-              </AdminLayout>
-            </PrivateRoute>
-          }
-        />
-
-        <Route
           path="/admin/reservas"
           element={
             <PrivateRoute role={1}>
@@ -114,6 +102,8 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* CATCH-ALL */}
         <Route path="*" element={<Landing />} />
       </Routes>
     </>

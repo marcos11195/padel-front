@@ -13,24 +13,25 @@ const Reservar = () => {
     const [pistaSeleccionada, setPistaSeleccionada] = useState("");
     const [horarios, setHorarios] = useState([]);
     const [horariosSeleccionados, setHorariosSeleccionados] = useState([]);
-    const [extras, setExtras] = useState([]);
-    const [extrasSeleccionados, setExtrasSeleccionados] = useState([]);
     const [esFinDeSemana, setEsFinDeSemana] = useState(false);
 
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const token = storedUser?.token;
     const auth = { headers: { Authorization: `Bearer ${token}` } };
 
+    // Cargar pistas
     useEffect(() => {
         axios.get(`${API}/api/pistas`, auth).then((res) => setPistas(res.data.pistas));
     }, []);
 
+    // Detectar fin de semana
     useEffect(() => {
         if (!fecha) return setEsFinDeSemana(false);
         const dia = new Date(fecha).getDay();
         setEsFinDeSemana(dia === 0 || dia === 6);
     }, [fecha]);
 
+    // Cargar horarios disponibles
     useEffect(() => {
         if (!fecha || !pistaSeleccionada) return;
 
@@ -39,21 +40,9 @@ const Reservar = () => {
             .then((res) => setHorarios(res.data.disponibilidades));
     }, [fecha, pistaSeleccionada]);
 
-    useEffect(() => {
-        axios.get(`${API}/api/extras`, auth).then((res) => {
-            setExtras(res.data.extras.filter((ex) => ex.nombre.toLowerCase() !== "fin de semana"));
-        });
-    }, []);
-
     const toggleHorario = (id) => {
         setHorariosSeleccionados((prev) =>
             prev.includes(id) ? prev.filter((h) => h !== id) : [...prev, id]
-        );
-    };
-
-    const toggleExtra = (id) => {
-        setExtrasSeleccionados((prev) =>
-            prev.includes(id) ? prev.filter((e) => e !== id) : [...prev, id]
         );
     };
 
@@ -69,8 +58,7 @@ const Reservar = () => {
                 {
                     pista_id: pistaSeleccionada,
                     fecha,
-                    horario_ids: horariosSeleccionados,
-                    extras: extrasSeleccionados,
+                    horario_ids: horariosSeleccionados
                 },
                 auth
             )
@@ -162,11 +150,9 @@ const Reservar = () => {
                                         <div
                                             onClick={() => toggleHorario(h.id)}
                                             className={`p-3 text-center rounded shadow-sm horario-card ${seleccionado
-                                                ? "bg-success text-white"
-                                                : "bg-dark text-white bg-opacity-75 border border-light"
-
+                                                    ? "bg-success text-white"
+                                                    : "bg-dark text-white bg-opacity-75 border border-light"
                                                 }`}
-
                                             style={{
                                                 cursor: "pointer",
                                                 transition: "0.3s",
@@ -181,31 +167,6 @@ const Reservar = () => {
                                     </div>
                                 );
                             })}
-                        </div>
-                    </div>
-                )}
-
-                {/* EXTRAS */}
-                {extras.length > 0 && (
-                    <div className="mb-3">
-                        <label className="form-label">Extras</label>
-
-                        <div className="row">
-                            {extras.map((ex) => (
-                                <div className="col-6 mb-2" key={ex.id}>
-                                    <div className="form-check">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            checked={extrasSeleccionados.includes(ex.id)}
-                                            onChange={() => toggleExtra(ex.id)}
-                                        />
-                                        <label className="form-check-label">
-                                            {ex.nombre} (+{ex.precio_extra}€)
-                                        </label>
-                                    </div>
-                                </div>
-                            ))}
                         </div>
                     </div>
                 )}
