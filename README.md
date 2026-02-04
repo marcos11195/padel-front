@@ -1,16 +1,83 @@
-# React + Vite
+# Padel — Sistema de Reservas de Pistas de Pádel
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web con enfoque en reservar pistas para jugar al pádel.  
+Con autenticación de usuarios, selecciones inteligentes de franjas horarios, gestion de reservas y administración.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Frontend desarrollado con **React + Vite** y **Flask** para el Backend.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Demo
 
-## Expanding the ESLint configuration
+**GitHub Pages:**  
+https://marcos11195.github.io/padel-front
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+##  Características
+
+-  **Autenticación de usuarios** (login / registro)
+-  **Listado de pistas**
+-  **Selector de fecha filtrado por pistas**
+-  **Selección de franjas horarias**
+  - Selección de franjas horarias multiples
+  - Solo selecciones consecutivas, no hay reservas separadas
+  - Sin alertas intrusivas para mostrar mensaje de error en la selección
+- **Cálculo de precio**
+  - Cálculo automático del precio a la hora de hacer la reserva con inclusión automática de sobrecargo por fin de semana
+- **Visualizar reservas**
+  - Permite ver las reservas de pista y horarios realizadas, asi mismo cancelarlas
+  - Cancelar reserva
+-**Panel de administración**
+  - Permite visualizar las pistas y añadir nuevas pistas si es necesario
+  - Permite visualizar los usuarios y editarlos manualmente
+  - Permite visualizar los horarios editarlos/eliminarlos y añadir nuevas franjas horarias que puedan estar disponibles
+  - Permite gestionar las reservas en caso de que sea necesario eliminar o cancelar alguna reserva desde administracion
+- **Despliegue en GitHub Pages** 
+
+---
+
+## 🖼️ Capturas de pantalla
+
+
+
+---
+
+## 🧱 Tecnologías utilizadas
+
+### Front
+- React 18
+- Vite
+- Bootstrap 5
+- Axios
+
+### Back
+- Python 3
+- Flask
+- SQLAlchemy
+- JWT Authentication
+
+### Infraestructura
+- GitHub Pages (frontend)
+- PythonAnywhere (backend)
+
+---
+
+Endpoints principales
+Método	Endpoint	Descripción
+POST	/api/login	Autenticación
+POST	/api/register	Registro
+GET	/api/pistas	Listado de pistas
+POST	/api/disponibilidadpista	Horarios disponibles
+POST	/api/reservar	Crear reserva
+GET	/api/mis_reservas	Reservas del usuario
+POST	/api/cancelar_reserva	Cancelar reserva
+
+## 📦 Instalación y ejecución en local
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/TU_USUARIO/padel-front.git
+cd padel-front
