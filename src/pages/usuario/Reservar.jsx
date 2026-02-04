@@ -41,10 +41,36 @@ const Reservar = () => {
     }, [fecha, pistaSeleccionada]);
 
     const toggleHorario = (id) => {
-        setHorariosSeleccionados((prev) =>
-            prev.includes(id) ? prev.filter((h) => h !== id) : [...prev, id]
-        );
+        // Si ya está seleccionado → permitir deseleccionar sin restricciones
+        if (horariosSeleccionados.includes(id)) {
+            setHorariosSeleccionados(horariosSeleccionados.filter(h => h !== id));
+            return;
+        }
+
+        const horarioActual = horarios.find(h => h.id === id);
+        const [inicioActual, finActual] = horarioActual.franja.split("-");
+
+        // Si no hay horarios seleccionados → permitir siempre
+        if (horariosSeleccionados.length === 0) {
+            setHorariosSeleccionados([id]);
+            return;
+        }
+
+        // Obtener el último horario seleccionado (el más reciente)
+        const ultimoId = horariosSeleccionados[horariosSeleccionados.length - 1];
+        const ultimoHorario = horarios.find(h => h.id === ultimoId);
+        const [inicioUltimo, finUltimo] = ultimoHorario.franja.split("-");
+
+        // Validar consecutividad
+        if (finUltimo !== inicioActual) {
+            alert("Solo puedes seleccionar franjas consecutivas");
+            return;
+        }
+
+        // Si es consecutivo → añadirlo
+        setHorariosSeleccionados([...horariosSeleccionados, id]);
     };
+
 
     const confirmarReserva = () => {
         if (!fecha || !pistaSeleccionada || horariosSeleccionados.length === 0) {
@@ -150,8 +176,8 @@ const Reservar = () => {
                                         <div
                                             onClick={() => toggleHorario(h.id)}
                                             className={`p-3 text-center rounded shadow-sm horario-card ${seleccionado
-                                                    ? "bg-success text-white"
-                                                    : "bg-dark text-white bg-opacity-75 border border-light"
+                                                ? "bg-success text-white"
+                                                : "bg-dark text-white bg-opacity-75 border border-light"
                                                 }`}
                                             style={{
                                                 cursor: "pointer",
