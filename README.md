@@ -38,13 +38,16 @@ https://marcos11195.github.io/padel-front
 
 ---
 
-## 🖼️ Capturas de pantalla
+## Capturas de pantalla
+<img width="1253" height="682" alt="landing" src="https://github.com/user-attachments/assets/7d534438-c22f-46e3-9488-86c6ebd0b523" />
+<img width="1252" height="686" alt="usuario" src="https://github.com/user-attachments/assets/07f7119f-b1e1-45ca-a685-f2ef2ac6f2b5" />
+<img width="1254" height="742" alt="admin" src="https://github.com/user-attachments/assets/f1001d24-6702-4e4c-9773-97e342b9ee7b" />
 
 
 
 ---
 
-## 🧱 Tecnologías utilizadas
+## Tecnologías utilizadas
 
 ### Front
 - React 18
@@ -53,10 +56,10 @@ https://marcos11195.github.io/padel-front
 - Axios
 
 ### Back
-- Python 3
+- Python
 - Flask
 - SQLAlchemy
-- JWT Authentication
+- JWT
 
 ### Infraestructura
 - GitHub Pages (frontend)
@@ -74,10 +77,30 @@ POST	/api/reservar	Crear reserva
 GET	/api/mis_reservas	Reservas del usuario
 POST	/api/cancelar_reserva	Cancelar reserva
 
-## 📦 Instalación y ejecución en local
+# Instalación y ejecución en local
 
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/TU_USUARIO/padel-front.git
-cd padel-front
+## 1. Clonar el repositorio
+git clone https://github.com/marcos11195/padel-front.git<br>
+cd padel-front<br>
+npm install<br>
+## 2.Instalara las dependencias del repositorio 
+### Hay que asegurarse de tener node 18+ instalado, para ello hay varias maneras:
+## Opcion 1
+Instalandolo desde la web<br>
+https://nodejs.org<br>
+## Opcion 2
+Instalandolo desde consola de comandos (powershell)<br>
+### 1- instalar NVM
+###(windows)
+winget install CoreyButler.NVMforWindows<br>
+###(macOs/linux)
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+## 2-Instalar node 18 
+nvm install 18<br>
+## 3-Usar Node18
+nvm use 18<br>
+configurar el archivo.env (ya esta configurado con el api en este caso)<br>
+Ejecutar en modo desarrollo <br>
+- npm run dev<br>
+para levantar un servidor local<br>
+(en caso de usar otro api diferente habria que modificar mas cosas) en este caso no es necesario pero si no se podria levantar tambien el backend en local
