@@ -15,8 +15,7 @@ import AdminReservas from "./components/admin/AdminReservas";
 
 import UsuarioLayout from "./components/usuario/UsuarioLayout";
 
-// IMPORTS DEL PANEL DE USUARIO
-import InicioUsuario from "./pages/usuario/InicioUsuario";   // ⬅️ AÑADIDO
+import InicioUsuario from "./pages/usuario/InicioUsuario";
 import Reservar from "./pages/usuario/Reservar";
 import MisReservas from "./pages/usuario/MisReservas";
 import Perfil from "./pages/usuario/Perfil";
@@ -29,12 +28,12 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* PUBLIC */}
+     
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/registro" element={<RegisterPage />} />
 
-        {/* USER (rol 1 y rol 2 pueden entrar) */}
+     
         <Route
           path="/usuario"
           element={
@@ -43,20 +42,13 @@ function App() {
             </PrivateRoute>
           }
         >
-          {/* Página de inicio del usuario */}
-          <Route index element={<InicioUsuario />} />   {/* ⬅️ ACTUALIZADO */}
-
-          {/* Perfil */}
+          <Route index element={<InicioUsuario />} />
           <Route path="perfil" element={<Perfil />} />
-
-          {/* Reservar */}
           <Route path="reservar" element={<Reservar />} />
-
-          {/* Mis reservas */}
           <Route path="mis-reservas" element={<MisReservas />} />
         </Route>
 
-        {/* ADMIN (solo rol 1) */}
+       
         <Route
           path="/admin"
           element={
@@ -122,6 +114,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="*" element={<Landing />} />
       </Routes>
     </>
   );
