@@ -16,7 +16,6 @@ const AdminExtras = () => {
     const [form, setForm] = useState({
         nombre: "",
         precio: "",
-        descripcion: "",
     });
 
     const fetchExtras = async () => {
@@ -47,12 +46,11 @@ const AdminExtras = () => {
             setEditExtra(extra);
             setForm({
                 nombre: extra.nombre,
-                precio: extra.precio_extra,   // ← CORREGIDO
-                descripcion: extra.descripcion || "",
+                precio: extra.precio_extra,
             });
         } else {
             setEditExtra(null);
-            setForm({ nombre: "", precio: "", descripcion: "" });
+            setForm({ nombre: "", precio: "" });
         }
 
         setShowModal(true);
@@ -86,8 +84,7 @@ const AdminExtras = () => {
             },
             body: JSON.stringify({
                 nombre: form.nombre,
-                precio_extra: form.precio,     // ← CORREGIDO
-                descripcion: form.descripcion,
+                precio_extra: form.precio,
             }),
         });
 
@@ -144,7 +141,6 @@ const AdminExtras = () => {
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Precio</th>
-                            <th>Descripción</th>
                             <th style={{ width: "150px" }}>Acciones</th>
                         </tr>
                     </thead>
@@ -154,8 +150,7 @@ const AdminExtras = () => {
                             <tr key={extra.id}>
                                 <td>{extra.id}</td>
                                 <td>{extra.nombre}</td>
-                                <td>{extra.precio_extra} €</td> {/* ← CORREGIDO */}
-                                <td>{extra.descripcion}</td>
+                                <td>{extra.precio_extra} €</td>
                                 <td>
                                     <button
                                         className="btn btn-warning btn-sm me-2"
@@ -217,17 +212,6 @@ const AdminExtras = () => {
                                             onChange={handleChange}
                                             required
                                         />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">Descripción</label>
-                                        <textarea
-                                            name="descripcion"
-                                            className="form-control"
-                                            rows="3"
-                                            value={form.descripcion}
-                                            onChange={handleChange}
-                                        ></textarea>
                                     </div>
 
                                 </div>
