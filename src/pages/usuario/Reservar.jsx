@@ -15,6 +15,14 @@ const Reservar = () => {
     const [horariosSeleccionados, setHorariosSeleccionados] = useState([]);
     const [esFinDeSemana, setEsFinDeSemana] = useState(false);
 
+    // Toast suave
+    const [toast, setToast] = useState("");
+
+    const showToast = (msg) => {
+        setToast(msg);
+        setTimeout(() => setToast(""), 2000);
+    };
+
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const token = storedUser?.token;
     const auth = { headers: { Authorization: `Bearer ${token}` } };
@@ -40,8 +48,11 @@ const Reservar = () => {
             .then((res) => setHorarios(res.data.disponibilidades));
     }, [fecha, pistaSeleccionada]);
 
+    // ============================
+    // NUEVA LÓGICA DE SELECCIÓN
+    // ============================
     const toggleHorario = (id) => {
-        // Si ya está seleccionado → permitir deseleccionar sin restricciones
+        // Si ya está seleccionado → deseleccionar
         if (horariosSeleccionados.includes(id)) {
             setHorariosSeleccionados(horariosSeleccionados.filter(h => h !== id));
             return;
@@ -50,27 +61,27 @@ const Reservar = () => {
         const horarioActual = horarios.find(h => h.id === id);
         const [inicioActual, finActual] = horarioActual.franja.split("-");
 
-        // Si no hay horarios seleccionados → permitir siempre
+        // Si no hay seleccionados → seleccionar directamente
         if (horariosSeleccionados.length === 0) {
             setHorariosSeleccionados([id]);
             return;
         }
 
-        // Obtener el último horario seleccionado (el más reciente)
+        // Obtener el último horario seleccionado
         const ultimoId = horariosSeleccionados[horariosSeleccionados.length - 1];
         const ultimoHorario = horarios.find(h => h.id === ultimoId);
         const [inicioUltimo, finUltimo] = ultimoHorario.franja.split("-");
 
-        // Validar consecutividad
+        // Si NO es consecutivo → resetear selección y seleccionar solo el nuevo
         if (finUltimo !== inicioActual) {
-            alert("Solo puedes seleccionar franjas consecutivas");
+            setHorariosSeleccionados([id]);
+            showToast("Solo puedes seleccionar franjas consecutivas");
             return;
         }
 
         // Si es consecutivo → añadirlo
         setHorariosSeleccionados([...horariosSeleccionados, id]);
     };
-
 
     const confirmarReserva = () => {
         if (!fecha || !pistaSeleccionada || horariosSeleccionados.length === 0) {
@@ -102,6 +113,25 @@ const Reservar = () => {
                 minHeight: "90vh",
             }}
         >
+            {/* TOAST */}
+            {toast && (
+                <div
+                    style={{
+                        position: "fixed",
+                        bottom: "20px",
+                        right: "20px",
+                        background: "rgba(0,0,0,0.8)",
+                        color: "white",
+                        padding: "10px 15px",
+                        borderRadius: "8px",
+                        zIndex: 9999,
+                        animation: "fadeIn 0.3s ease"
+                    }}
+                >
+                    {toast}
+                </div>
+            )}
+
             {/* OVERLAY */}
             <div
                 style={{
@@ -176,8 +206,8 @@ const Reservar = () => {
                                         <div
                                             onClick={() => toggleHorario(h.id)}
                                             className={`p-3 text-center rounded shadow-sm horario-card ${seleccionado
-                                                ? "bg-success text-white"
-                                                : "bg-dark text-white bg-opacity-75 border border-light"
+                                                    ? "bg-success text-white"
+                                                    : "bg-dark text-white bg-opacity-75 border border-light"
                                                 }`}
                                             style={{
                                                 cursor: "pointer",
