@@ -178,6 +178,7 @@ const Reservar = () => {
                         type="date"
                         className="form-control"
                         value={fecha}
+                        min={new Date().toISOString().split("T")[0]}
                         onChange={(e) => setFecha(e.target.value)}
                     />
                 </div>
