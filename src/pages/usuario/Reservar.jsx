@@ -52,14 +52,15 @@ const Reservar = () => {
     // NUEVA LÓGICA DE SELECCIÓN
     // ============================
     const toggleHorario = (id) => {
-        // Si ya está seleccionado → deseleccionar
-        if (horariosSeleccionados.includes(id)) {
-            setHorariosSeleccionados(horariosSeleccionados.filter(h => h !== id));
-            return;
-        }
-
         const horarioActual = horarios.find(h => h.id === id);
         const [inicioActual, finActual] = horarioActual.franja.split("-");
+
+        // Si ya estaba seleccionado → reiniciar selección y dejar solo este
+        if (horariosSeleccionados.includes(id)) {
+            setHorariosSeleccionados([id]);
+            showToast("Selección reiniciada");
+            return;
+        }
 
         // Si no hay seleccionados → seleccionar directamente
         if (horariosSeleccionados.length === 0) {
