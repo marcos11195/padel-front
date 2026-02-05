@@ -20,6 +20,7 @@ import MisReservas from "./pages/usuario/MisReservas";
 import Perfil from "./pages/usuario/Perfil";
 
 import PrivateRoute from "./router/PrivateRoute";
+import { Navigate } from "react-router-dom";
 
 function App() {
   return (
