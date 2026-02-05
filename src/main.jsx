@@ -9,7 +9,7 @@ import './theme.css';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <HashRouter basename="/padel-front/">
+    <HashRouter>
       <AuthProvider>
         <App />
       </AuthProvider>

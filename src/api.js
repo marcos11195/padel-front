@@ -22,7 +22,8 @@ export const apiFetch = async (endpoint, options = {}) => {
 
     if (res.status === 401) {
         localStorage.removeItem("user");
-        window.location.href = "/login";
+        window.location.href = "/padel-front/#/login";
+
     }
 
     return res;
