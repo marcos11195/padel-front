@@ -91,7 +91,7 @@ const AdminHorarios = () => {
         });
 
         if (!res.ok) {
-            alert("Error guardando horario");
+            alert("Error al guardar horario");
             return;
         }
 
