@@ -20,11 +20,11 @@ export const apiFetch = async (endpoint, options = {}) => {
 
     const res = await fetch(`${API_URL}${endpoint}`, finalOptions);
 
-    if (res.status === 401) {
-        localStorage.removeItem("user");
-        window.location.href = "/padel-front/#/login";
+    // if (res.status === 401) {
+    //     localStorage.removeItem("user");
+    //     window.location.href = "/padel-front/#/login";
 
-    }
+    // }
 
     return res;
 };
