@@ -103,8 +103,7 @@ function App() {
           }
         />
 
-        {/* CATCH-ALL */}
-        <Route path="*" element={<Landing />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   );
